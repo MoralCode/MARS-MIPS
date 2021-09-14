@@ -471,7 +471,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          file.setMnemonic(KeyEvent.VK_F);
          edit = new JMenu("Edit");
          edit.setMnemonic(KeyEvent.VK_E);
-         run=new JMenu("Run");
+         run=new JMenu("Avengers");
          run.setMnemonic(KeyEvent.VK_R);
          //window = new JMenu("Window");
          //window.setMnemonic(KeyEvent.VK_W);
