@@ -109,7 +109,7 @@ subiu $t1,$t2,100000	lui $1, VHL3	ori $1, $1, VL3U	subu RG1, RG2, $1	#SUBtractio
 # convenience logical operations can be added too,
 andi $t1,$t2,100000	lui $1, VHL3	ori $1, $1, VL3U	and RG1, RG2, $1	#AND Immediate : set $t1 to ($t2 bitwise-AND 32-bit immediate)
 ori $t1,$t2,100000	lui $1, VHL3	ori $1, $1, VL3U	or RG1, RG2, $1		#OR Immediate : set $t1 to ($t2 bitwise-OR 32-bit immediate)
-xori $t1,$t2,100000	lui $1, VHL3	ori $1, $1, VL3U	xor RG1, RG2, $1	#XOR Immediate : set $t1 to ($t2 bitwise-exclusive-OR 32-bit immediate)
+xori $t1,$t2,100000	xor RG1, RG2, $1	#XOR Immediate : set $t1 to ($t2 bitwise-exclusive-OR 16-bit immediate)
 and $t1,$t2,100	andi RG1, RG2, VL3U	#AND : set $t1 to ($t2 bitwise-AND 16-bit unsigned immediate)
 or $t1,$t2,100	ori RG1, RG2, VL3U	#OR : set $t1 to ($t2 bitwise-OR 16-bit unsigned immediate)
 xor $t1,$t2,100	xori RG1, RG2, VL3U	#XOR : set $t1 to ($t2 bitwise-exclusive-OR 16-bit unsigned immediate)
@@ -121,7 +121,7 @@ ori $t1,100	ori RG1, RG1, VL2U	#OR Immediate : set $t1 to ($t1 bitwise-OR 16-bit
 xori $t1,100	xori RG1, RG1, VL2U	#XOR Immediate : set $t1 to ($t1 bitwise-exclusive-OR 16-bit unsigned immediate)
 andi $t1,100000	lui $1, VHL2	ori $1, $1, VL2U	and RG1, RG1, $1	#AND Immediate : set $t1 to ($t1 bitwise-AND 32-bit immediate)
 ori $t1,100000	lui $1, VHL2	ori $1, $1, VL2U	or RG1, RG1, $1	#OR Immediate : set $t1 to ($t1 bitwise-OR 32-bit immediate)
-xori $t1,100000	lui $1, VHL2	ori $1, $1, VL2U	xor RG1, RG1, $1	#XOR Immediate : set $t1 to ($t1 bitwise-exclusive-OR 32-bit immediate)
+xori $t1,100000	xor RG1, RG1, $1	#XOR Immediate : set $t1 to ($t1 bitwise-exclusive-OR 16-bit immediate)
 
 # Note: most of the expansions in this group were rewritten for Release 3.4.1 to remove internal branching.
 seq $t1,$t2,$t3	subu RG1, RG2, RG3	ori $1, $0, 1	sltu RG1, RG1, $1	#Set EQual : if $t2 equal to $t3 then set $t1 to 1 else 0
