@@ -75,7 +75,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       private JCheckBoxMenuItem settingsLabel, settingsPopupInput, settingsValueDisplayBase, settingsAddressDisplayBase,
               settingsExtended, settingsAssembleOnOpen, settingsAssembleAll, settingsWarningsAreErrors, settingsStartAtMain,
       		  settingsDelayedBranching, settingsProgramArguments, settingsSelfModifyingCode;
-      private JMenuItem settingsExceptionHandler, settingsEditor, settingsHighlighting, settingsMemoryConfiguration;
+      private JMenuItem settingsExceptionHandler, settingsEditor, pseudoEditor, settingsHighlighting, settingsMemoryConfiguration;
       private JMenuItem helpHelp, helpAbout;
          
       // components of the toolbar
@@ -427,6 +427,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                									  "View and modify text editor settings.",
                									  null,null,
                									  mainUI);
+             settingsPseudoAction          = new SettingsCustomPseudoAction("Pseudo Operations...",
+                                                 null,
+                                                 "View and modify pseudo operation settings.",
+                                                 null,null,
+                                                 mainUI);
             settingsHighlightingAction          = new SettingsHighlightingAction("Highlighting...",
                                             null,
                									  "View and modify Execute Tab highlighting colors",
@@ -600,6 +605,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          settingsProgramArguments = new JCheckBoxMenuItem(settingsProgramArgumentsAction);
          settingsProgramArguments.setSelected(Globals.getSettings().getProgramArguments());
          settingsEditor = new JMenuItem(settingsEditorAction);
+         pseudoEditor = new JMenuItem(settingsPseudoAction);
          settingsHighlighting = new JMenuItem(settingsHighlightingAction);
          settingsExceptionHandler = new JMenuItem(settingsExceptionHandlerAction);
          settingsMemoryConfiguration = new JMenuItem(settingsMemoryConfigurationAction);
