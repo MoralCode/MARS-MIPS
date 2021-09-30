@@ -67,7 +67,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         *  editor settings.
         */
        public void actionPerformed(ActionEvent e) {
-           editorDialog = new EditorFontDialog(Globals.getGui(), "Pseudo operation Settings", true, Globals.getSettings().getEditorFont() );
+           editorDialog = new EditPseudoOpsDialog(Globals.getGui(), "Pseudo operation Settings", true, Globals.getSettings().getEditorFont() );
            editorDialog.setVisible(true);
 
        }
@@ -98,7 +98,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
        };
 
        // Concrete font chooser class. 
-       private class EditorFontDialog extends AbstractFontSettingDialog {
+       private class EditPseudoOpsDialog extends AbstractFontSettingDialog {
 
            private JButton[] foregroundButtons;
            private JLabel[] samples;
@@ -125,7 +125,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
            private int initialEditorTabSize, initialCaretBlinkRate, initialPopupGuidance;
            private boolean initialLineHighlighting, initialGenericTextEditor, initialAutoIndent;
 
-           public EditorFontDialog(Frame owner, String title, boolean modality, Font font) {
+           public EditPseudoOpsDialog(Frame owner, String title, boolean modality, Font font) {
                super(owner, title, modality, font);
                if (Globals.getSettings().getBooleanSetting(Settings.GENERIC_TEXT_EDITOR)) {
                    syntaxStylePanel.setVisible(false);
