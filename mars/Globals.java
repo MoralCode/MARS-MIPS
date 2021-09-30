@@ -121,10 +121,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
        public static void initialize(boolean gui) {
          if (!initialized) {
             memory = Memory.getInstance();  //clients can use Memory.getInstance instead of Globals.memory
+            settings = new Settings(gui);
             instructionSet = new InstructionSet();
             instructionSet.populate();    
             symbolTable = new SymbolTable("global");
-            settings = new Settings(gui);
             initialized = true;
             debug = false; 
 				memory.clear(); // will establish memory configuration from setting
