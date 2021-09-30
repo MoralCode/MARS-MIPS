@@ -626,6 +626,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          settings.add(settingsSelfModifyingCode);
          settings.addSeparator();
          settings.add(settingsEditor);
+         settings.add(pseudoEditor);
          settings.add(settingsHighlighting);
          settings.add(settingsExceptionHandler);
          settings.add(settingsMemoryConfiguration);
