@@ -76,7 +76,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      * @see BasicInstruction
      * @see ExtendedInstruction
      */
-       private void populate(String pseudoOpsFilename)
+    public void populate(String pseudoOpsFilename)
       {
         /* Here is where the parade begins.  Every instruction is added to the set here.*/
       
