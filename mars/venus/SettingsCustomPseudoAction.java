@@ -9,7 +9,9 @@
    import javax.swing.text.Caret;
    import java.awt.*;
    import java.awt.event.*;
-	
+   import java.io.File;
+
+
 	/*
 Copyright (c) 2021, Adrian Edwards
 
@@ -233,7 +235,17 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                changeFilepathButton.setActionCommand("change");
                changeFilepathButton.addActionListener(e -> {
                    if ("change".equals(e.getActionCommand())) {
-                       pseudoOpsFile.showOpenDialog(this);
+                       int returnVal = pseudoOpsFile.showOpenDialog(this);
+
+                       if (returnVal == JFileChooser.APPROVE_OPTION) {
+                           File file = pseudoOpsFile.getSelectedFile();
+                           this.filepath = file.getPath();
+                           label1.setText(this.filepath);
+                           //This is where a real application would open the file.
+//                           log.append("Opening: " + file.getName() + "." + newline);
+                       } else {
+//                           log.append("Open command cancelled by user." + newline);
+                       }
                    }
 
                });
