@@ -1,11 +1,8 @@
    package mars.venus;
    import mars.*;
-   import mars.mips.dump.*;
    import javax.swing.*;
    import java.awt.*;
    import java.awt.event.*;
-   import javax.swing.event.*;
-   import java.io.*;
    import java.net.*;
 
 /*
@@ -75,7 +72,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       private JCheckBoxMenuItem settingsLabel, settingsPopupInput, settingsValueDisplayBase, settingsAddressDisplayBase,
               settingsExtended, settingsAssembleOnOpen, settingsAssembleAll, settingsWarningsAreErrors, settingsStartAtMain,
       		  settingsDelayedBranching, settingsProgramArguments, settingsSelfModifyingCode;
-      private JMenuItem settingsExceptionHandler, settingsEditor, settingsHighlighting, settingsMemoryConfiguration;
+      private JMenuItem settingsExceptionHandler, settingsEditor, pseudoEditor, settingsHighlighting, settingsMemoryConfiguration;
       private JMenuItem helpHelp, helpAbout;
          
       // components of the toolbar
@@ -98,7 +95,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       private Action settingsLabelAction, settingsPopupInputAction, settingsValueDisplayBaseAction, settingsAddressDisplayBaseAction,
                      settingsExtendedAction, settingsAssembleOnOpenAction, settingsAssembleAllAction,
       					settingsWarningsAreErrorsAction, settingsStartAtMainAction, settingsProgramArgumentsAction,
-      					settingsDelayedBranchingAction, settingsExceptionHandlerAction, settingsEditorAction,
+      					settingsDelayedBranchingAction, settingsExceptionHandlerAction, settingsEditorAction, settingsPseudoAction,
       					settingsHighlightingAction, settingsMemoryConfigurationAction, settingsSelfModifyingCodeAction;    
       private Action helpHelpAction, helpAboutAction;
    
@@ -427,6 +424,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                									  "View and modify text editor settings.",
                									  null,null,
                									  mainUI);
+             settingsPseudoAction          = new SettingsCustomPseudoAction("Pseudo Operations...",
+                                                 null,
+                                                 "View and modify pseudo operation settings.",
+                                                 null,null,
+                                                 mainUI);
             settingsHighlightingAction          = new SettingsHighlightingAction("Highlighting...",
                                             null,
                									  "View and modify Execute Tab highlighting colors",
@@ -600,6 +602,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          settingsProgramArguments = new JCheckBoxMenuItem(settingsProgramArgumentsAction);
          settingsProgramArguments.setSelected(Globals.getSettings().getProgramArguments());
          settingsEditor = new JMenuItem(settingsEditorAction);
+         pseudoEditor = new JMenuItem(settingsPseudoAction);
          settingsHighlighting = new JMenuItem(settingsHighlightingAction);
          settingsExceptionHandler = new JMenuItem(settingsExceptionHandlerAction);
          settingsMemoryConfiguration = new JMenuItem(settingsMemoryConfigurationAction);
@@ -620,6 +623,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          settings.add(settingsSelfModifyingCode);
          settings.addSeparator();
          settings.add(settingsEditor);
+         settings.add(pseudoEditor);
          settings.add(settingsHighlighting);
          settings.add(settingsExceptionHandler);
          settings.add(settingsMemoryConfiguration);

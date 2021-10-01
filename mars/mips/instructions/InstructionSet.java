@@ -65,6 +65,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          return instructionList;
       
       }
+
+      public void populate() {
+           populate("/PseudoOps.txt");
+      }
     /**
      * Adds all instructions to the set.  A given extended instruction may have
      * more than one Instruction object, depending on how many formats it can have.
@@ -72,7 +76,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      * @see BasicInstruction
      * @see ExtendedInstruction
      */
-       public void populate()
+    public void populate(String pseudoOpsFilename)
       {
         /* Here is where the parade begins.  Every instruction is added to the set here.*/
       
@@ -3060,7 +3064,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                }));
       			
         ////////////// READ PSEUDO-INSTRUCTION SPECS FROM DATA FILE AND ADD //////////////////////
-         addPseudoInstructions();
+         addPseudoInstructions(pseudoOpsFilename);
       	
         ////////////// GET AND CREATE LIST OF SYSCALL FUNCTION OBJECTS ////////////////////
          syscallLoader = new SyscallLoader();
@@ -3107,21 +3111,30 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    	
     /*  METHOD TO ADD PSEUDO-INSTRUCTIONS
     */
-   
-       private void addPseudoInstructions()
+
+       private void addPseudoInstructions() {
+           addPseudoInstructions("/PseudoOps.txt");
+       }
+
+       private void addPseudoInstructions(String filename)
       {
          InputStream is = null;
          BufferedReader in = null;
          try
          {
-            // leading "/" prevents package name being prepended to filepath.
-            is = this.getClass().getResourceAsStream("/PseudoOps.txt");
-            in = new BufferedReader(new InputStreamReader(is));
+             try {
+                 in = new BufferedReader( new FileReader(filename));
+             } catch (FileNotFoundException e){
+                // leading "/" prevents package name being prepended to filepath.
+                 is = this.getClass().getResourceAsStream(filename);
+
+                 in = new BufferedReader(new InputStreamReader(is));
+             }
          } 
              catch (NullPointerException e)
             {
                System.out.println(
-                    "Error: MIPS pseudo-instruction file PseudoOps.txt not found.");
+                    "Error: MIPS pseudo-instruction file " + filename + "not found.");
                System.exit(0);
             }
          try
