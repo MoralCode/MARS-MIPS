@@ -100,7 +100,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          return "2003-2014";
       }
        private static String getCopyrightHolders() {
-         return "Pete Sanderson and Kenneth Vollmar";
+         return "Pete Sanderson, Kenneth Vollmar, and Contributors";
       }
     
        public static void setGui(VenusUI g) {
