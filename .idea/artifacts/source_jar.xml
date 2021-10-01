@@ -7,7 +7,6 @@
       </element>
       <element id="module-output" name="mars" />
       <element id="module-source" name="mars" />
-      <element id="dir-copy" path="$PROJECT_DIR$" />
     </root>
   </artifact>
 </component>
