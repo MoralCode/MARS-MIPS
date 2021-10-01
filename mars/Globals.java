@@ -97,7 +97,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       public static boolean runSpeedPanelExists = false;
    	
        private static String getCopyrightYears() {
-         return "2003-2014";
+         return "2003-2014,2021";
       }
        private static String getCopyrightHolders() {
          return "Pete Sanderson, Kenneth Vollmar, and Contributors";
