@@ -122,8 +122,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                overallPanel.add(buildDialogPanel(), BorderLayout.CENTER);
                overallPanel.add(buildControlPanel(), BorderLayout.SOUTH);
                this.setContentPane(overallPanel);
-               this.setDefaultCloseOperation(
-                       JDialog.DO_NOTHING_ON_CLOSE);
                this.addWindowListener(
                        new WindowAdapter() {
                            public void windowClosing(WindowEvent we) {
