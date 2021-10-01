@@ -2,18 +2,10 @@
 
    import mars.Globals;
    import mars.Settings;
-   import mars.util.EditorFont;
    import mars.venus.editors.jeditsyntax.SyntaxStyle;
-   import mars.venus.editors.jeditsyntax.SyntaxUtilities;
-   import mars.venus.editors.jeditsyntax.tokenmarker.MIPSTokenMarker;
 
    import javax.swing.*;
-   import javax.swing.border.BevelBorder;
-   import javax.swing.border.Border;
    import javax.swing.border.EmptyBorder;
-   import javax.swing.border.LineBorder;
-   import javax.swing.event.ChangeEvent;
-   import javax.swing.event.ChangeListener;
    import javax.swing.text.Caret;
    import java.awt.*;
    import java.awt.event.*;
