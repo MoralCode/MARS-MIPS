@@ -90,7 +90,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
        };
 
        // Concrete font chooser class. 
-       private class EditPseudoOpsDialog extends AbstractFontSettingDialog {
+       private class EditPseudoOpsDialog extends JDialog {
 
            private JButton[] foregroundButtons;
            private JLabel[] samples;
@@ -100,6 +100,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
            private int[] syntaxStyleIndex;
            private SyntaxStyle[] defaultStyles,initialStyles, currentStyles;
            private Font previewFont;
+
+           private String filepath;
 
            private JPanel dialogPanel,syntaxStylePanel,otherSettingsPanel; /////4 Aug 2010
 
@@ -117,26 +119,30 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
            private int initialEditorTabSize, initialCaretBlinkRate, initialPopupGuidance;
            private boolean initialLineHighlighting, initialGenericTextEditor, initialAutoIndent;
 
-           public EditPseudoOpsDialog(Frame owner, String title, boolean modality, Font font) {
-               super(owner, title, modality, font);
-               if (Globals.getSettings().getBooleanSetting(Settings.GENERIC_TEXT_EDITOR)) {
-                   syntaxStylePanel.setVisible(false);
-                   otherSettingsPanel.setVisible(false);
-               }
+           public EditPseudoOpsDialog(Frame owner, String title, boolean modality, String path) {
+               super(owner, title, modality);
+               JPanel overallPanel = new JPanel(new BorderLayout());
+               overallPanel.setBorder(new EmptyBorder(10,10,10,10));
+               overallPanel.add(buildDialogPanel(), BorderLayout.CENTER);
+               overallPanel.add(buildControlPanel(), BorderLayout.SOUTH);
+               this.setContentPane(overallPanel);
+               this.setDefaultCloseOperation(
+                       JDialog.DO_NOTHING_ON_CLOSE);
+               this.addWindowListener(
+                       new WindowAdapter() {
+                           public void windowClosing(WindowEvent we) {
+                               closeDialog();
+                           }
+                       });
+               this.pack();
+               this.setLocationRelativeTo(owner);
            }
 
            // build the dialog here
            protected JPanel buildDialogPanel() {
                JPanel dialog = new JPanel(new BorderLayout());
-               JPanel fontDialogPanel = super.buildDialogPanel();
-               JPanel syntaxStylePanel = buildSyntaxStylePanel();
-               JPanel otherSettingsPanel = buildOtherSettingsPanel();
-               fontDialogPanel.setBorder(BorderFactory.createTitledBorder("Editor Font"));
-               syntaxStylePanel.setBorder(BorderFactory.createTitledBorder("Syntax Styling"));
-               otherSettingsPanel.setBorder(BorderFactory.createTitledBorder("Other Editor Settings"));
-               dialog.add(fontDialogPanel, BorderLayout.WEST);
-               dialog.add(syntaxStylePanel, BorderLayout.CENTER);
-               dialog.add(otherSettingsPanel, BorderLayout.SOUTH);
+               JPanel pseudoOpsDialogPanel = buildPseudoOpsDialogPanel();
+               dialog.add(pseudoOpsDialogPanel, BorderLayout.WEST);
                this.dialogPanel = dialog; /////4 Aug 2010
                return dialog;
            }
@@ -208,35 +214,48 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                return controlPanel;
            }
 
+           protected void performApply() {
+               apply(this.getFilepath());
+           }
+
+           private String getFilepath() {
+               return this.filepath;
+           }
+
+           // We're finished with this modal dialog.
+           protected void closeDialog() {
+               this.setVisible(false);
+               this.dispose();
+           }
+           
+           public JPanel buildPseudoOpsDialogPanel() {
+               JPanel contents = new JPanel(new BorderLayout(20,20));
+               contents.setBorder(new EmptyBorder(10,10,10,10));
+
+               String currentFilepath = Globals.getSettings().getPseudoOpsFilepath();
+               JFileChooser pseudoOpsFile = new JFileChooser();
+               JLabel label1 = new JLabel(currentFilepath);
+               JButton changeFilepathButton = new JButton("Select new File");
+               changeFilepathButton.setActionCommand("change");
+               changeFilepathButton.addActionListener(e -> {
+                   if ("change".equals(e.getActionCommand())) {
+                       pseudoOpsFile.showOpenDialog(this);
+                   }
+
+               });
+//
+               JPanel pseudoOpPanel = new JPanel();
+               pseudoOpPanel.add(new JLabel("Custom PseudoOp Files "));
+               pseudoOpPanel.add(label1);
+               pseudoOpPanel.add(changeFilepathButton);
+               contents.add(pseudoOpPanel, BorderLayout.CENTER);
+               return contents;
+           }
+
            // User has clicked "Apply" or "Apply and Close" button.  Required method, is 
            // abstract in superclass.
-           protected void apply(Font font) {
-               Globals.getSettings().setBooleanSetting(Settings.GENERIC_TEXT_EDITOR, genericEditorCheck.isSelected());
-               Globals.getSettings().setBooleanSetting(Settings.EDITOR_CURRENT_LINE_HIGHLIGHTING, lineHighlightCheck.isSelected());
-               Globals.getSettings().setBooleanSetting(Settings.AUTO_INDENT, autoIndentCheck.isSelected());
-               Globals.getSettings().setCaretBlinkRate(((Integer)blinkRateSpinSelector.getValue()).intValue());
-               Globals.getSettings().setEditorTabSize(tabSizeSelector.getValue());
-               if (syntaxStylesAction) {
-                   for (int i=0; i<syntaxStyleIndex.length; i++) {
-                       Globals.getSettings().setEditorSyntaxStyleByPosition( syntaxStyleIndex[i],
-                               new SyntaxStyle(samples[i].getForeground(),
-                                       italic[i].isSelected(), bold[i].isSelected()) );
-                   }
-                   syntaxStylesAction = false; // reset
-               }
-               Globals.getSettings().setEditorFont(font);
-               for (int i=0; i<popupGuidanceOptions.length; i++) {
-                   if (popupGuidanceOptions[i].isSelected()) {
-                       if (i==0) {
-                           Globals.getSettings().setBooleanSetting(Settings.POPUP_INSTRUCTION_GUIDANCE, false);
-                       }
-                       else {
-                           Globals.getSettings().setBooleanSetting(Settings.POPUP_INSTRUCTION_GUIDANCE, true);
-                           Globals.getSettings().setEditorPopupPrefixLength(i);
-                       }
-                       break;
-                   }
-               }
+           protected void apply(String filename) {
+               Globals.getSettings().setPseudoOpsFilePath(filename);
            }
 
            // User has clicked "Reset" button.  Put everything back to initial state.
