@@ -146,15 +146,17 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       public static final int EDITOR_TAB_SIZE = 5;
    	/** Number of letters to be matched by editor's instruction guide before popup generated (if popup enabled) */
       public static final int EDITOR_POPUP_PREFIX_LENGTH = 6;
+      /** index at which to store the setting for the path to the custom pseudo ops file */
+       public static final int PSEUDOOP_FILE_PATH_INDEX = 7;
    	// Match the above by position.
-      private static final String[] stringSettingsKeys = { "ExceptionHandler", "TextColumnOrder", "LabelSortState", "MemoryConfiguration", "CaretBlinkRate", "EditorTabSize", "EditorPopupPrefixLength" };
+      private static final String[] stringSettingsKeys = { "ExceptionHandler", "TextColumnOrder", "LabelSortState", "MemoryConfiguration", "CaretBlinkRate", "EditorTabSize", "EditorPopupPrefixLength", "PseudoOpsFilename" };
    
       /** Last resort default values for String settings; 
    	 *  will use only if neither the Preferences nor the properties file work.
    	 *  If you wish to change, do so before instantiating the Settings object.
    	 *  Must match key by list position.
    	 */
-      private static String[] defaultStringSettingsValues = { "", "0 1 2 3 4", "0", "", "500", "8", "2" }; 
+      private static String[] defaultStringSettingsValues = { "", "0 1 2 3 4", "0", "", "500", "8", "2", "/PseudoOps.txt" };
    
    
       // FONT SETTINGS.  Each array position has associated name.
@@ -787,6 +789,14 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
        public Color getDefaultColorSettingByPosition(int position) {
          return getColorValueByPosition(position, defaultColorSettingsValues);
       }
+
+       /**
+        * get the filepath of the file where pseudoops are defined.
+        * @return
+        */
+      public String getPseudoOpsFilepath(){
+          return stringSettingsValues[PSEUDOOP_FILE_PATH_INDEX];
+      }
    
    
    	 
@@ -1137,6 +1147,14 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             setColorSetting(position, color);
          }
       }
+
+       /**
+        * Sets the filepath of the pseudo ops file
+        * @param filepath
+        */
+       public void setPseudoOpsFilePath(String filepath) {
+           setStringSetting(PSEUDOOP_FILE_PATH_INDEX, filepath);
+       }
    
    /////////////////////////////////////////////////////////////////////////
    //

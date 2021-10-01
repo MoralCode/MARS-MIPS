@@ -123,7 +123,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
             memory = Memory.getInstance();  //clients can use Memory.getInstance instead of Globals.memory
             settings = new Settings(gui);
             instructionSet = new InstructionSet();
-            instructionSet.populate();    
+            instructionSet.populate(settings.getPseudoOpsFilepath());
             symbolTable = new SymbolTable("global");
             initialized = true;
             debug = false; 

@@ -63,7 +63,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         *  editor settings.
         */
        public void actionPerformed(ActionEvent e) {
-           editorDialog = new EditPseudoOpsDialog(Globals.getGui(), "Pseudo operation Settings", true, Globals.getSettings().getEditorFont() );
+           editorDialog = new EditPseudoOpsDialog(Globals.getGui(), "Pseudo operation Settings", true, Globals.getSettings().getPseudoOpsFilepath() );
            editorDialog.setVisible(true);
 
        }
