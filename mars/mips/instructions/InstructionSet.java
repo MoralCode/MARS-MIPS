@@ -3122,9 +3122,14 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
          BufferedReader in = null;
          try
          {
-            // leading "/" prevents package name being prepended to filepath.
-            is = this.getClass().getResourceAsStream(filename);
-            in = new BufferedReader(new InputStreamReader(is));
+             try {
+                 in = new BufferedReader( new FileReader(filename));
+             } catch (FileNotFoundException e){
+                // leading "/" prevents package name being prepended to filepath.
+                 is = this.getClass().getResourceAsStream(filename);
+
+                 in = new BufferedReader(new InputStreamReader(is));
+             }
          } 
              catch (NullPointerException e)
             {
