@@ -36,7 +36,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
    /**
-    * Action class for the Settings menu item for text editor settings.
+    * Action class for the Settings menu item for custom pseudo operation definitions.
     */
    public class SettingsCustomPseudoAction extends GuiAction  {
 
