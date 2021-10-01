@@ -1,11 +1,8 @@
    package mars.venus;
    import mars.*;
-   import mars.mips.dump.*;
    import javax.swing.*;
    import java.awt.*;
    import java.awt.event.*;
-   import javax.swing.event.*;
-   import java.io.*;
    import java.net.*;
 
 /*
