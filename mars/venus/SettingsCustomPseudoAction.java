@@ -252,6 +252,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                pseudoOpPanel.add(new JLabel("Custom PseudoOp Files "));
                pseudoOpPanel.add(label1);
                pseudoOpPanel.add(changeFilepathButton);
+               pseudoOpPanel.add(new JLabel("A restart is required for these changes to take effect."));
+
                contents.add(pseudoOpPanel, BorderLayout.CENTER);
                return contents;
            }
