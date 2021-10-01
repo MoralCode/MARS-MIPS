@@ -3134,7 +3134,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
              catch (NullPointerException e)
             {
                System.out.println(
-                    "Error: MIPS pseudo-instruction file PseudoOps.txt not found.");
+                    "Error: MIPS pseudo-instruction file " + filename + "not found.");
                System.exit(0);
             }
          try
