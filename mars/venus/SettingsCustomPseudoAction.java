@@ -179,22 +179,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                                reset();
                            }
                        });
-               initialGenericTextEditor = Globals.getSettings().getBooleanSetting(Settings.GENERIC_TEXT_EDITOR);
-               genericEditorCheck = new JCheckBox("Use Generic Editor", initialGenericTextEditor);
-               genericEditorCheck.setToolTipText(GENERIC_TOOL_TIP_TEXT);
-               genericEditorCheck.addItemListener(
-                       new ItemListener() {
-                           public void itemStateChanged(ItemEvent e) {
-                               if (e.getStateChange()==ItemEvent.SELECTED) {
-                                   syntaxStylePanel.setVisible(false);
-                                   otherSettingsPanel.setVisible(false);
-                               }
-                               else {
-                                   syntaxStylePanel.setVisible(true);
-                                   otherSettingsPanel.setVisible(true);
-                               }
-                           }
-                       });
 
                controlPanel.add(Box.createHorizontalGlue());
                controlPanel.add(okButton);
@@ -204,8 +188,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                controlPanel.add(cancelButton);
                controlPanel.add(Box.createHorizontalGlue());
                controlPanel.add(resetButton);
-               controlPanel.add(Box.createHorizontalGlue());
-               controlPanel.add(genericEditorCheck);
                controlPanel.add(Box.createHorizontalGlue());
                return controlPanel;
            }
