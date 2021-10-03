@@ -112,11 +112,17 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
            // since dialog created or most recent "apply".
            private boolean syntaxStylesAction = false;
 
+           private JLabel label1;
+
            private int initialEditorTabSize, initialCaretBlinkRate, initialPopupGuidance;
            private boolean initialLineHighlighting, initialGenericTextEditor, initialAutoIndent;
 
            public EditPseudoOpsDialog(Frame owner, String title, boolean modality, String path) {
                super(owner, title, modality);
+               this.filepath = path;
+               System.out.println(path);
+               this.label1 = new JLabel(this.filepath);
+
                JPanel overallPanel = new JPanel(new BorderLayout());
                overallPanel.setBorder(new EmptyBorder(10,10,10,10));
                overallPanel.add(buildDialogPanel(), BorderLayout.CENTER);
@@ -210,9 +216,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                JPanel contents = new JPanel(new BorderLayout(20,20));
                contents.setBorder(new EmptyBorder(10,10,10,10));
 
-               String currentFilepath = Globals.getSettings().getPseudoOpsFilepath();
                JFileChooser pseudoOpsFile = new JFileChooser();
-               JLabel label1 = new JLabel(currentFilepath);
                JButton changeFilepathButton = new JButton("Select new File");
                changeFilepathButton.setActionCommand("change");
                changeFilepathButton.addActionListener(e -> {
@@ -222,7 +226,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                        if (returnVal == JFileChooser.APPROVE_OPTION) {
                            File file = pseudoOpsFile.getSelectedFile();
                            this.filepath = file.getPath();
-                           label1.setText(this.filepath);
+                           this.label1.setText(this.filepath);
                            //This is where a real application would open the file.
 //                           log.append("Opening: " + file.getName() + "." + newline);
                        } else {
@@ -233,7 +237,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                });
 //
                JPanel pseudoOpPanel = new JPanel();
-               pseudoOpPanel.add(label1);
+               pseudoOpPanel.add(this.label1);
                pseudoOpPanel.add(changeFilepathButton);
                pseudoOpPanel.add(new JLabel("A restart is required for these changes to take effect."));
 
@@ -249,6 +253,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
            // User has clicked "Reset" button.  Put everything back to initial state.
            protected void reset() {
+               Globals.getSettings().setPseudoOpsFilePath("/PseudoOps.txt");
+               this.label1.setText(Globals.getSettings().getPseudoOpsFilepath());
            }
 
 
