@@ -249,7 +249,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
            // User has clicked "Reset" button.  Put everything back to initial state.
            protected void reset() {
-               Globals.getSettings().setPseudoOpsFilePath("/PseudoOps.txt");
+               this.filepath = "/PseudoOps.txt";
+               performApply();
                this.label1.setText(Globals.getSettings().getPseudoOpsFilepath());
            }
 
