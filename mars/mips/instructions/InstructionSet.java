@@ -3118,25 +3118,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
        private void addPseudoInstructions(String filename)
       {
-         InputStream is = null;
-         BufferedReader in = null;
-         try
-         {
-             try {
-                 in = new BufferedReader( new FileReader(filename));
-             } catch (FileNotFoundException e){
-                // leading "/" prevents package name being prepended to filepath.
-                 is = this.getClass().getResourceAsStream(filename);
+         BufferedReader in = pseudoInstructionsFromFile(filename);
 
-                 in = new BufferedReader(new InputStreamReader(is));
-             }
-         } 
-             catch (NullPointerException e)
-            {
-               System.out.println(
-                    "Error: MIPS pseudo-instruction file " + filename + "not found.");
-               System.exit(0);
-            }
          try
          {
             String line, pseudoOp, template, firstTemplate, token;
@@ -3191,6 +3174,31 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                System.exit(0);
             }
       
+
+      private BufferedReader pseudoInstructionsFromFile(String filename){
+          InputStream is = null;
+          BufferedReader in = null;
+          try
+          {
+              try {
+                  in = new BufferedReader( new FileReader(filename));
+              } catch (FileNotFoundException e){
+                  // leading "/" prevents package name being prepended to filepath.
+                  is = this.getClass().getResourceAsStream(filename);
+                  if (is == null) {
+
+                  } else {
+                      in = new BufferedReader(new InputStreamReader(is));
+                  }
+              }
+          }
+          catch (NullPointerException e)
+          {
+              System.out.println(
+                      "Error: MIPS pseudo-instruction file " + filename + "not found.");
+              System.exit(0);
+          }
+          return in;
       }
    	
     /**
