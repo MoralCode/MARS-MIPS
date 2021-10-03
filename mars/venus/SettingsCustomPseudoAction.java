@@ -136,6 +136,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
            protected JPanel buildDialogPanel() {
                JPanel dialog = new JPanel(new BorderLayout());
                JPanel pseudoOpsDialogPanel = buildPseudoOpsDialogPanel();
+               pseudoOpsDialogPanel.setBorder(BorderFactory.createTitledBorder("Custom PseudoOp Files"));
+
                dialog.add(pseudoOpsDialogPanel, BorderLayout.WEST);
                this.dialogPanel = dialog; /////4 Aug 2010
                return dialog;
@@ -249,7 +251,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                });
 //
                JPanel pseudoOpPanel = new JPanel();
-               pseudoOpPanel.add(new JLabel("Custom PseudoOp Files "));
                pseudoOpPanel.add(label1);
                pseudoOpPanel.add(changeFilepathButton);
                pseudoOpPanel.add(new JLabel("A restart is required for these changes to take effect."));
