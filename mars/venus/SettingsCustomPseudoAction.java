@@ -199,7 +199,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
            }
 
            protected void performApply() {
-               apply(this.getFilepath());
+               Globals.getSettings().setPseudoOpsFilePath(this.getFilepath());
            }
 
            private String getFilepath() {
@@ -245,11 +245,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
                return contents;
            }
 
-           // User has clicked "Apply" or "Apply and Close" button.  Required method, is 
-           // abstract in superclass.
-           protected void apply(String filename) {
-               Globals.getSettings().setPseudoOpsFilePath(filename);
-           }
 
            // User has clicked "Reset" button.  Put everything back to initial state.
            protected void reset() {
