@@ -3119,61 +3119,16 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
        private void addPseudoInstructions(String filename)
       {
          BufferedReader in = pseudoInstructionsFromFile(filename);
+         try {
+             parsePseudoInstructions(in);
+         } catch (Exception ioe)
+          {
+              System.out.println(
+                      "Error: Invalid MIPS pseudo-instruction specification.");
+              System.exit(0);
+          }
+      }
 
-         try
-         {
-            String line, pseudoOp, template, firstTemplate, token;
-            String description;
-            StringTokenizer tokenizer;
-            while ((line = in.readLine()) != null) {
-                // skip over: comment lines, empty lines, lines starting with blank.
-               if (!line.startsWith("#") && !line.startsWith(" ")
-                        && line.length() > 0)  {  
-                  description = "";
-                  tokenizer = new StringTokenizer(line, "\t");
-                  pseudoOp = tokenizer.nextToken();
-                  template = "";
-                  firstTemplate = null;
-                  while (tokenizer.hasMoreTokens()) {
-                     token = tokenizer.nextToken();
-                     if (token.startsWith("#")) {  
-                        // Optional description must be last token in the line.
-                        description = token.substring(1);
-                        break;
-                     }
-                     if (token.startsWith("COMPACT")) {
-                        // has second template for Compact (16-bit) memory config -- added DPS 3 Aug 2009
-                        firstTemplate = template;
-                        template = "";
-                        continue;
-                     } 
-                     template = template + token;
-                     if (tokenizer.hasMoreTokens()) {
-                        template = template + "\n";
-                     }
-                  }
-                  ExtendedInstruction inst = (firstTemplate == null)
-                         ? new ExtendedInstruction(pseudoOp, template, description)
-                     	 : new ExtendedInstruction(pseudoOp, firstTemplate, template, description);
-                  instructionList.add(inst);
-               	//if (firstTemplate != null) System.out.println("\npseudoOp: "+pseudoOp+"\ndefault template:\n"+firstTemplate+"\ncompact template:\n"+template);
-               }
-            }
-            in.close();
-         } 
-             catch (IOException ioe)
-            {
-               System.out.println(
-                    "Internal Error: MIPS pseudo-instructions could not be loaded.");
-               System.exit(0);
-            } 
-             catch (Exception ioe)
-            {
-               System.out.println(
-                    "Error: Invalid MIPS pseudo-instruction specification.");
-               System.exit(0);
-            }
-      
 
       private BufferedReader pseudoInstructionsFromFile(String filename){
           InputStream is = null;
@@ -3199,6 +3154,57 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
               System.exit(0);
           }
           return in;
+      }
+      private void parsePseudoInstructions(BufferedReader in) {
+          try
+          {
+              String line, pseudoOp, template, firstTemplate, token;
+              String description;
+              StringTokenizer tokenizer;
+              while ((line = in.readLine()) != null) {
+                  // skip over: comment lines, empty lines, lines starting with blank.
+                  if (!line.startsWith("#") && !line.startsWith(" ")
+                          && line.length() > 0)  {
+                      description = "";
+                      tokenizer = new StringTokenizer(line, "\t");
+                      pseudoOp = tokenizer.nextToken();
+                      template = "";
+                      firstTemplate = null;
+                      while (tokenizer.hasMoreTokens()) {
+                          token = tokenizer.nextToken();
+                          if (token.startsWith("#")) {
+                              // Optional description must be last token in the line.
+                              description = token.substring(1);
+                              break;
+                          }
+                          if (token.startsWith("COMPACT")) {
+                              // has second template for Compact (16-bit) memory config -- added DPS 3 Aug 2009
+                              firstTemplate = template;
+                              template = "";
+                              continue;
+                          }
+                          template = template + token;
+                          if (tokenizer.hasMoreTokens()) {
+                              template = template + "\n";
+                          }
+                      }
+                      ExtendedInstruction inst = (firstTemplate == null)
+                              ? new ExtendedInstruction(pseudoOp, template, description)
+                              : new ExtendedInstruction(pseudoOp, firstTemplate, template, description);
+                      instructionList.add(inst);
+                      //if (firstTemplate != null) System.out.println("\npseudoOp: "+pseudoOp+"\ndefault template:\n"+firstTemplate+"\ncompact template:\n"+template);
+                  }
+              }
+              in.close();
+          }
+          catch (IOException ioe) {
+              System.out.println(
+                      "Internal Error: MIPS pseudo-instructions could not be loaded.");
+              System.exit(0);
+          } catch (Exception ioe)
+          {
+              throw ioe;
+          }
       }
    	
     /**
