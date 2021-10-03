@@ -236,10 +236,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
                });
 //
-               JPanel pseudoOpPanel = new JPanel();
-               pseudoOpPanel.add(this.label1);
-               pseudoOpPanel.add(changeFilepathButton);
-               pseudoOpPanel.add(new JLabel("A restart is required for these changes to take effect."));
+               JPanel pseudoOpPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+               pseudoOpPanel.add(this.label1, BorderLayout.NORTH);
+               pseudoOpPanel.add(changeFilepathButton, BorderLayout.EAST);
+               pseudoOpPanel.add(new JLabel("A restart is required for these changes to take effect."), BorderLayout.SOUTH);
 
                contents.add(pseudoOpPanel, BorderLayout.CENTER);
                return contents;
